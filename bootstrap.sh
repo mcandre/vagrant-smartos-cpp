@@ -1,3 +1,3 @@
 #!/bin/sh
-sudo pkgin update && \
-    pkgin install llvm
+pfexec pkgin -y update &&
+    pfexec pkgin -y install gcc49
