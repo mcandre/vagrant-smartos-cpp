@@ -1,10 +1,13 @@
 BOX_DISCLESS=vagrant-smartos-cpp-discless.box
 BOX=vagrant-smartos-cpp.box
 
-.PHONY: launch-vm clean-vm clean-boxes clean-vagrant-metadata clean-box-workspace
+.PHONY: launch-vm clean-isos clean-vm clean-boxes clean-vagrant-metadata clean-box-workspace
 
 launch-vm: Vagrantfile bootstrap.sh
 	vagrant up
+
+clean-isos:
+	-rm -rf *.iso
 
 clean-vm:
 	-vagrant destroy -f
@@ -18,7 +21,7 @@ clean-vagrant-metadata:
 clean-box-workspace:
 	-rm -rf box-discless
 
-clean: clean-boxes clean-vm clean-vagrant-metadata clean-box-workspace
+clean: clean-boxes clean-vm clean-isos clean-vagrant-metadata clean-box-workspace
 
 $(BOX_DISCLESS): clean-boxes clean-vm launch-vm export.Vagrantfile
 	vagrant package --output $(BOX_DISCLESS) --vagrantfile export.Vagrantfile
